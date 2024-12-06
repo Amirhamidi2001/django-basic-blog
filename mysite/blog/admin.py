@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Category, Post
+from blog.models import Category, Post, Comment
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -14,12 +14,19 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('status', 'author', 'created_at', 'published_at')
     search_fields = ('title', 'content', 'author__username')
     # prepopulated_fields = {'slug': ('title',)}
-    # fields = ('image', 'title', 'content', 'author', 'categories', 'tags', 'status', 'published_at', 'login_require')
-    fields = ('image', 'title', 'content', 'author', 'categories', 'status', 'published_at', 'login_require')
-    # filter_horizontal = ('categories', 'tags')
-    filter_horizontal = ('categories',)
+    fields = ('image', 'title', 'content', 'author', 'category', 'tags', 'status', 'published_at', 'login_require')
+    # filter_horizontal = ('category', 'tags')
+    filter_horizontal = ('category',)
     empty_value_display = '-empty-'
 
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'post', 'approved', 'created_at')
+    list_filter = ('approved',)
+    search_fields = ('name', 'email', 'comment')
+    actions = ['approve_comments']
+
+
+admin.site.register(Comment, CommentAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Post, PostAdmin)
