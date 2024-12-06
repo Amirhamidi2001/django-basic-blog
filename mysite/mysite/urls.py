@@ -22,18 +22,20 @@ from website.sitemaps import StaticViewSitemap
 from blog.sitemaps import BlogSitemap
 from debug_toolbar.toolbar import debug_toolbar_urls
 
-sitemaps = {
-    "static": StaticViewSitemap,
-    "blog": BlogSitemap
-}
+sitemaps = {"static": StaticViewSitemap, "blog": BlogSitemap}
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path("", include("website.urls")),
     path("blog/", include("blog.urls")),
     path("accounts/", include("accounts.urls")),
-    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap",),
-    path('robots.txt', include('robots.urls')),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
+    path("robots.txt", include("robots.urls")),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

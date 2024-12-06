@@ -31,7 +31,9 @@ def signup_view(request):
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username already exists.")
         else:
-            user = User.objects.create_user(username=username, email=email, password=password)
+            user = User.objects.create_user(
+                username=username, email=email, password=password
+            )
             login(request, user)
             return redirect("website:index")  # Adjust to your blog's post list view
     return render(request, "accounts/signup.html")

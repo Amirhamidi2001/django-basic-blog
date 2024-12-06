@@ -21,7 +21,9 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.BooleanField(default=0)
     content = models.TextField()
-    image = models.ImageField(upload_to='blog/', default="blog/default.jpg", null=True, blank=True)
+    image = models.ImageField(
+        upload_to="blog/", default="blog/default.jpg", null=True, blank=True
+    )
     category = models.ManyToManyField(Category)
     tags = TaggableManager()
     counted_views = models.IntegerField(default=0)
@@ -31,13 +33,13 @@ class Post(models.Model):
     published_at = models.DateTimeField(null=True)
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ["-created_at"]
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('blog:single', kwargs={'pid': self.pk})
+        return reverse("blog:single", kwargs={"pid": self.pk})
 
 
 class Comment(models.Model):
