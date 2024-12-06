@@ -1,0 +1,12 @@
+<h3 class="sidebar-title">Categories</h3>
+<div class="sidebar-item categories">
+  <ul>
+    {% for category in categories %}
+      <li>
+        <a href="{% url 'blog:category' category.name %}">{{ category.name }} <span>({{ category.post_count }})</span></a>
+      </li>
+    {% empty %}
+      <li>No categories available.</li>
+    {% endfor %}
+  </ul>
+</div>
