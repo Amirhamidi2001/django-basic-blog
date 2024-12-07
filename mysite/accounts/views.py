@@ -6,24 +6,33 @@ from django.contrib import messages
 
 
 def login_view(request):
+    """
+    Authenticates users and redirects to the index page on successful login, or shows an error message on failure.
+    """
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("website:index")  # Adjust to your blog's post list view
+            return redirect("website:index")
         else:
             messages.error(request, "Invalid username or password.")
     return render(request, "accounts/login.html")
 
 
 def logout_view(request):
+    """
+    Logs out the current user and redirects to the login page.
+    """
     logout(request)
     return redirect("accounts:login")
 
 
 def signup_view(request):
+    """
+    Registers a new user, logs them in on success, and redirects to the index page or shows an error for existing usernames.
+    """
     if request.method == "POST":
         username = request.POST.get("username")
         email = request.POST.get("email")
@@ -35,5 +44,5 @@ def signup_view(request):
                 username=username, email=email, password=password
             )
             login(request, user)
-            return redirect("website:index")  # Adjust to your blog's post list view
+            return redirect("website:index")
     return render(request, "accounts/signup.html")

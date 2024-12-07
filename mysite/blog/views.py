@@ -7,6 +7,9 @@ from django.contrib.auth.decorators import login_required
 
 
 def blog_view(request, **kwargs):
+    """
+    Displays a paginated list of blog posts filtered by category, tag, date, or author.
+    """
     posts = Post.objects.filter(status=1)
 
     if "cat_name" in kwargs:
@@ -36,6 +39,9 @@ def blog_view(request, **kwargs):
 
 @login_required
 def single_view(request, pid):
+    """
+    Displays a single blog post with comments and allows authenticated users to submit new comments.
+    """
     post = get_object_or_404(Post, pk=pid)
     post.counted_views += 1
     post.save()
@@ -55,6 +61,9 @@ def single_view(request, pid):
 
 
 def blog_search(request):
+    """
+    Searches for blog posts containing the query string and displays the results.
+    """
     posts = Post.objects.filter(status=1)
     query = request.GET.get("s", "")
     if query:

@@ -4,14 +4,23 @@ from django.contrib import messages
 
 
 def index_view(request):
+    """
+    Renders the index page of the website.
+    """
     return render(request, "website/index.html")
 
 
 def about_view(request):
+    """
+    Renders the about page of the website.
+    """
     return render(request, "website/about.html")
 
 
 def contact_view(request):
+    """
+    Handles the contact form submission.
+    """
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -29,6 +38,9 @@ def contact_view(request):
 
 
 def newsletter_view(request):
+    """
+    Handles newsletter subscription form submission.
+    """
     if request.method == "POST":
         form = NewsletterForm(request.POST)
         if form.is_valid():

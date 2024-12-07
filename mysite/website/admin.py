@@ -3,6 +3,10 @@ from website.models import Contact, Newsletter
 
 
 class ContactAdmin(admin.ModelAdmin):
+    """
+    Admin interface for managing website contact.
+    """
+
     date_hierarchy = "created_at"
     list_display = ("name", "email", "subject", "created_at")
     search_fields = ("name", "email", "subject", "message")
@@ -11,6 +15,10 @@ class ContactAdmin(admin.ModelAdmin):
 
 
 class NewsletterAdmin(admin.ModelAdmin):
+    """
+    Admin interface for managing website newsletter.
+    """
+
     list_display = ("email",)
     search_fields = ("email",)
     list_filter = ("email",)
